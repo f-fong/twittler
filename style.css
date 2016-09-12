@@ -1,0 +1,14 @@
+body {
+  background: #4099FF;
+  color: white;
+  font: 300 16px/22px "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-align: center;
+}
+
+#content {
+  background: #FFF;
+  color: #263248;
+  padding: 10px 20px 20px 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+}

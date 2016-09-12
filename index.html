@@ -3,25 +3,60 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <title>Twittler</title>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
+  <h1>Twittler</h1>
+  <button>New Tweets</button>
+    <p id="content"></p>
     <script>
 
-      $(document).ready(function(){
-        var $body = $('body');
+    function generate(userName) {
+
+      var theStream;
+
+      if (!userName) {
+
+        theStream = streams.home;
+
+      } else {
+        
+        theStream = streams.users[userName];
+      }
+      
+      var $body = $('#content');
         $body.html('');
 
-        var index = streams.home.length - 1;
+        var index = theStream.length - 1;
         while(index >= 0){
-          var tweet = streams.home[index];
+          var tweet = theStream[index];
           var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
+          var $link = $('<a href="#">@'+tweet.user+'</a>');
+          $link.on('click', (function(userName) {
+            generate(userName);
+          }).bind(null, tweet.user))
+          $tweet.text(': ' + tweet.message + ' - ' + new Date($.now()));
+          $link.prependTo($tweet);
           $tweet.appendTo($body);
-          index -= 1;
+          index -= 1; 
         }
+      }
+
+      $(document).ready(function() {
+
+        generate();
+
+        $('button').on('click', generate.bind(null, null));
+
+        
+        
 
       });
 
     </script>
+    
+    
   </body>
-</html>
+</html> 
+
